@@ -1,0 +1,168 @@
+{
+ "versione": 1,
+ "azienda": "Azienda di esempio",
+ "aggiornatoIl": "2026-01-01T08:00:00.000Z",
+ "commesse": [
+  {
+   "codice": "OA99-0001",
+   "cliente": "ALFA",
+   "descrizione": "Cablaggio esempio",
+   "pezziOrdine": 60,
+   "attiva": true
+  },
+  {
+   "codice": "OA99-0002",
+   "cliente": "ALFA",
+   "descrizione": "",
+   "pezziOrdine": 250,
+   "attiva": true
+  },
+  {
+   "codice": "OA99-0003",
+   "cliente": "ALFA",
+   "descrizione": "",
+   "pezziOrdine": 600,
+   "attiva": true
+  },
+  {
+   "codice": "1001",
+   "cliente": "BETA",
+   "descrizione": "",
+   "pezziOrdine": 1000,
+   "attiva": true
+  },
+  {
+   "codice": "1002",
+   "cliente": "BETA",
+   "descrizione": "",
+   "pezziOrdine": 500,
+   "attiva": true
+  },
+  {
+   "codice": "901/CL",
+   "cliente": "GAMMA",
+   "descrizione": "",
+   "pezziOrdine": 60,
+   "attiva": true
+  },
+  {
+   "codice": "902/CL",
+   "cliente": "GAMMA",
+   "descrizione": "",
+   "pezziOrdine": 63,
+   "attiva": true
+  },
+  {
+   "codice": "0042",
+   "cliente": "GAMMA",
+   "descrizione": "Codice con zero iniziale: deve restare 0042",
+   "pezziOrdine": 10,
+   "attiva": true
+  },
+  {
+   "codice": "5390001",
+   "cliente": "DELTA",
+   "descrizione": "",
+   "pezziOrdine": 400,
+   "attiva": true
+  },
+  {
+   "codice": "5390002",
+   "cliente": "DELTA",
+   "descrizione": "",
+   "pezziOrdine": 150,
+   "attiva": true
+  },
+  {
+   "codice": "06/07/2026",
+   "cliente": "EPSILON",
+   "descrizione": "Codice con aspetto di data: deve restare testo",
+   "pezziOrdine": 120,
+   "attiva": true
+  },
+  {
+   "codice": "9/12",
+   "cliente": "EPSILON",
+   "descrizione": "Excel lo trasformerebbe in data",
+   "pezziOrdine": 15,
+   "attiva": true
+  }
+ ],
+ "lavorazioni": [
+  {
+   "nome": "Taglio a misura",
+   "contaPezziFiniti": false,
+   "attiva": true
+  },
+  {
+   "nome": "Spellatura",
+   "contaPezziFiniti": false,
+   "attiva": true
+  },
+  {
+   "nome": "Crimpatura",
+   "contaPezziFiniti": false,
+   "attiva": true
+  },
+  {
+   "nome": "Cablaggio",
+   "contaPezziFiniti": false,
+   "attiva": true
+  },
+  {
+   "nome": "Assemblaggio",
+   "contaPezziFiniti": false,
+   "attiva": true
+  },
+  {
+   "nome": "Chiusura",
+   "contaPezziFiniti": true,
+   "attiva": true
+  },
+  {
+   "nome": "Collaudo",
+   "contaPezziFiniti": true,
+   "attiva": true
+  },
+  {
+   "nome": "Imballo",
+   "contaPezziFiniti": true,
+   "attiva": true
+  },
+  {
+   "nome": "ALTRO (specificare nelle note)",
+   "contaPezziFiniti": false,
+   "attiva": true
+  }
+ ],
+ "dipendenti": [
+  {
+   "nome": "Operatore 1",
+   "reparto": "Reparto A",
+   "attivo": true,
+   "pinSale": "90b87fc5-5673-4588-99f1-80f953743518",
+   "pinHash": "f9b34b7e9b6d2c766c41bc3eff0688ec95b458370be88a927bcef9c89346665b"
+  },
+  {
+   "nome": "Operatore 2",
+   "reparto": "Reparto A",
+   "attivo": true,
+   "pinSale": "4baf0605-e8e1-4ecc-a961-c9e1f7a23050",
+   "pinHash": "21f06bd71d0bae7d6868f64c3270f3faef354a9508569874a05e5fa738f35c41"
+  },
+  {
+   "nome": "Operatore 3",
+   "reparto": "Reparto A",
+   "attivo": true,
+   "pinSale": "af595207-1ae8-499e-a1f3-3efab83cd642",
+   "pinHash": "07e94dcc6bdc0c612859b4475b5843b08ee89b18d99764df0adc764cbdc3d2d7"
+  },
+  {
+   "nome": "Operatore 4",
+   "reparto": "Reparto A",
+   "attivo": true,
+   "pinSale": "b963682b-26cc-4d89-a7d0-788888eee7c6",
+   "pinHash": "b84bc21adededf170f92f9a4ca3c3cf44c4605a05aed65a2d225e385fae9558c"
+  }
+ ]
+}

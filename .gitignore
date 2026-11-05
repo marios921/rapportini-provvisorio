@@ -1,0 +1,13 @@
+node_modules/
+.DS_Store
+test/risultati/
+
+# Dati reali: mai nel repository
+*.xlsx
+*.xlsm
+*.xls
+/dati/
+RAP_*.json
+anagrafiche.json
+correzioni.json
+importati.json

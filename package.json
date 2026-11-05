@@ -1,0 +1,14 @@
+{
+  "name": "rapportini-provvisorio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Rapportini di produzione provvisori: PWA tablet, Google Apps Script, app ufficio. Le dipendenze servono solo ai test.",
+  "scripts": {
+    "test": "node --test --test-concurrency=1 \"test/*.test.js\"",
+    "server-prova": "node test/server-prova.js",
+    "esempio": "node test/crea-esempio.js"
+  },
+  "devDependencies": {
+    "playwright": "1.63.0"
+  }
+}
