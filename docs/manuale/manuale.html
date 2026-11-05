@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="it"><head><meta charset="utf-8"><title>Rapportini di produzione — Manuale di istruzioni</title>
+<style>
+@page{size:A4;margin:18mm 18mm 20mm}
+:root{--acc:#0B5D6B;--soft:#D6E9EC;--ink:#15202A;--muted:#5A6770;--line:#D3DAD6;--run:#C98200;--runs:#FBEFD6;--bad:#B3261E;--bads:#F7DEDB;--oks:#DDEEDB;--ok:#2E7D32}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);font:400 10.8pt/1.45 "Helvetica Neue",Helvetica,Arial,sans-serif;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+h1,h2,h3{font-family:"Arial Narrow","Helvetica Neue",Arial,sans-serif;font-stretch:condensed}
+h1{font-size:30pt;line-height:1.05;margin:0 0 6mm;color:var(--acc);break-after:avoid}
+h2{font-size:17pt;line-height:1.15;margin:8mm 0 2.5mm;break-after:avoid;border-bottom:1.5pt solid var(--acc);padding-bottom:1.2mm}
+h3{font-size:12.5pt;margin:5mm 0 1.5mm;break-after:avoid}
+p{margin:0 0 2.5mm}
+.parte{break-before:page}
+.parte .etichetta{font:700 9.5pt "Helvetica Neue",Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:1.5mm}
+.intro{font-size:12pt;color:#2b3a45}
+ol.passi{list-style:none;counter-reset:p;margin:2mm 0 3.5mm;padding:0}
+ol.passi>li{counter-increment:p;position:relative;padding:0 0 0 9mm;margin:0 0 2.2mm;break-inside:avoid}
+ol.passi>li::before{content:counter(p);position:absolute;left:0;top:-.2mm;width:6mm;height:6mm;border-radius:50%;background:var(--acc);color:#fff;font:700 9.5pt/6mm "Helvetica Neue",Arial,sans-serif;text-align:center}
+ul{margin:1mm 0 3mm;padding-left:5.5mm} ul li{margin-bottom:1.2mm}
+figure{margin:3mm 0 4mm;break-inside:avoid;text-align:center}
+figure img{max-width:100%;border:.6pt solid var(--line);border-radius:2mm;display:block;margin:0 auto}
+figcaption{font-size:9pt;color:var(--muted);margin-top:1.2mm;text-align:center}
+.tasto{display:inline-block;font-weight:600;background:#EEF2F0;border:.6pt solid #B9C4BE;border-radius:1.2mm;padding:0 1.5mm;white-space:nowrap}
+.box{border-radius:2mm;padding:3mm 4mm;margin:3mm 0 4mm;break-inside:avoid}
+.box p:last-child,.box ul:last-child{margin-bottom:0}
+.box b.tit{display:block;margin-bottom:1mm}
+.nota{background:var(--soft);color:#07434e}
+.attenzione{background:var(--bads);color:#7c1a14}
+.ricorda{background:var(--runs);color:#5e3e00}
+table{border-collapse:collapse;width:100%;margin:2mm 0 4mm;font-size:10pt}
+th{text-align:left;background:var(--acc);color:#fff;padding:1.6mm 2.5mm;font-weight:600}
+td{padding:1.8mm 2.5mm;border-bottom:.6pt solid var(--line);vertical-align:top}
+tr{break-inside:avoid}
+.chip{display:inline-block;padding:0 2mm;border-radius:3mm;font-weight:700;font-size:8.5pt;white-space:nowrap}
+.chip.bad{background:var(--bads);color:var(--bad)} .chip.ok{background:var(--oks);color:var(--ok)} .chip.run{background:var(--runs);color:#8a5e00} .chip.man{background:var(--soft);color:var(--acc)}
+/* copertina */
+.copertina{height:255mm;display:flex;flex-direction:column;break-after:page}
+.copertina .fascia{background:var(--acc);color:#fff;border-radius:3mm;padding:16mm 12mm 14mm;margin-top:14mm}
+.copertina .fascia small{font-size:10pt;letter-spacing:.16em;text-transform:uppercase;opacity:.85}
+.copertina h1{color:#fff;font-size:42pt;margin:5mm 0 3mm}
+.copertina .sotto{font-size:15pt;margin:0}
+.filo{height:2mm;width:60mm;background:#F0B23A;border-radius:1mm;margin-top:9mm}
+.copertina .compila{margin-top:14mm}
+.copertina .compila td{border:0;padding:3mm 0 0;font-size:10.5pt;color:var(--muted)}
+.copertina .compila td:first-child{width:42mm}
+.riga-vuota{border-bottom:.8pt solid #8a97a0;height:6mm}
+.copertina .firma{margin-top:auto;color:var(--muted);font-size:10pt}
+.copertina .firma b{color:var(--ink);font-size:11.5pt;display:block}
+/* indice */
+.indice{list-style:none;padding:0;margin:3mm 0 5mm}
+.indice li{display:flex;align-items:baseline;gap:2mm;margin:0 0 1.1mm}
+.indice li.gr{font-weight:700;margin-top:2.5mm}
+.indice span.pt{flex:1;border-bottom:.8pt dotted #9aa6ae;transform:translateY(-1mm)}
+/* flusso */
+.flusso{display:grid;grid-template-columns:1fr 6mm 1fr 6mm 1fr 6mm 1fr;align-items:stretch;margin:4mm 0;break-inside:avoid}
+.flusso div.b{background:#F4F6F4;border:.6pt solid var(--line);border-radius:2mm;padding:2.5mm;font-size:9.3pt;line-height:1.3}
+.flusso div.b b{display:block;color:var(--acc);font-size:10.5pt;margin-bottom:.8mm}
+.flusso span{align-self:center;text-align:center;color:var(--acc);font-weight:700;font-size:13pt}
+/* scheda rapida */
+.scheda{break-before:page;break-after:page}
+.scheda h1{font-size:27pt;margin-bottom:1mm}
+.griglia{display:grid;grid-template-columns:1fr 1fr;gap:4mm;margin-top:4mm}
+.griglia .c{border:1pt solid var(--line);border-radius:2.5mm;padding:3.5mm 4mm;break-inside:avoid}
+.griglia h3{margin:0 0 1.5mm;color:var(--acc);font-size:13.5pt}
+.griglia ol{margin:0;padding-left:5mm;font-size:11pt} .griglia ol li{margin-bottom:1mm}
+.g2{grid-column:1/-1}
+</style></head><body>
+
+<section class="copertina">
+  <div class="fascia">
+    <small>Manuale di istruzioni</small>
+    <h1>Rapportini di produzione</h1>
+    <p class="sotto">Tablet in reparto e controllo in ufficio</p>
+    <div class="filo"></div>
+  </div>
+  <table class="compila">
+    <tr><td>Azienda</td><td><div class="riga-vuota"></div></td></tr>
+    <tr><td>Consegnato il</td><td><div class="riga-vuota"></div></td></tr>
+    <tr><td>Per assistenza</td><td><div class="riga-vuota"></div></td></tr>
+  </table>
+  <div class="firma"><b>Mario Saronne — Consulente di Direzione</b>Soluzione provvisoria, in uso fino al passaggio alla piattaforma definitiva · Novembre 2026</div>
+</section>
+
+<section>
+  <h1 style="font-size:24pt">Indice</h1>
+  <ul class="indice">
+    <li><a>Come funziona in breve</a><span class="pt"></span>{{pag:breve}}</li>
+    <li class="gr"><a>Parte 1 — In reparto, sul tablet</a><span class="pt"></span>{{pag:p1}}</li>
+    <li><a>Entrare col proprio nome</a><span class="pt"></span>{{pag:entrare}}</li>
+    <li><a>Avviare una lavorazione</a><span class="pt"></span>{{pag:avviare}}</li>
+    <li><a>Chiudere una lavorazione</a><span class="pt"></span>{{pag:chiudere}}</li>
+    <li><a>Inserire una riga a mano</a><span class="pt"></span>{{pag:mano}}</li>
+    <li><a>Lavorazioni rimaste aperte</a><span class="pt"></span>{{pag:aperte}}</li>
+    <li><a>L’invio all’ufficio</a><span class="pt"></span>{{pag:invio}}</li>
+    <li><a>Scheda rapida da tenere vicino al tablet</a><span class="pt"></span>{{pag:scheda}}</li>
+    <li class="gr"><a>Parte 2 — In ufficio</a><span class="pt"></span>{{pag:p2}}</li>
+    <li><a>Aprire l’archivio e aggiornare i dati</a><span class="pt"></span>{{pag:archivio}}</li>
+    <li><a>Controllare le righe</a><span class="pt"></span>{{pag:controllare}}</li>
+    <li><a>Correggere, eliminare, ripristinare</a><span class="pt"></span>{{pag:correggere}}</li>
+    <li><a>Portare le righe nel file Excel</a><span class="pt"></span>{{pag:excel}}</li>
+    <li><a>Righe cambiate dopo l’esportazione</a><span class="pt"></span>{{pag:riportare}}</li>
+    <li><a>Commesse, lavorazioni, dipendenti e PIN</a><span class="pt"></span>{{pag:anagrafiche}}</li>
+    <li class="gr"><a>Parte 3 — Installazione</a><span class="pt"></span>{{pag:p3}}</li>
+    <li><a>Installare l’app sul tablet</a><span class="pt"></span>{{pag:tablet}}</li>
+    <li><a>Preparare il PC dell’ufficio</a><span class="pt"></span>{{pag:pc}}</li>
+    <li class="gr"><a>Problemi e soluzioni</a><span class="pt"></span>{{pag:problemi}}</li>
+  </ul>
+
+  <h2 id="breve">Come funziona in breve</h2><!--segna:breve-->
+  <p>I dipendenti registrano il lavoro sul tablet, al posto del rapportino di carta. Le righe arrivano in una cartella su Google Drive, l’ufficio le controlla e le porta nel file Excel dei rapportini, dal quale si lavora come sempre.</p>
+  <div class="flusso">
+    <div class="b"><b>Tablet</b>Il dipendente avvia e chiude le lavorazioni</div><span>→</span>
+    <div class="b"><b>Google Drive</b>Ogni invio diventa un file nella cartella</div><span>→</span>
+    <div class="b"><b>Ufficio</b>Controlla e corregge le righe ricevute</div><span>→</span>
+    <div class="b"><b>Excel</b>Si incollano le righe nel file annuale</div>
+  </div>
+  <div class="box nota"><b class="tit">Due cose da sapere</b>
+    <ul>
+      <li><b>Il tablet funziona anche senza rete.</b> Le righe restano salvate sul tablet e partono appena la rete torna.</li>
+      <li><b>L’ufficio non vede il lavoro in tempo reale.</b> Vede solo le righe chiuse e inviate; tra l’invio e l’arrivo sul PC possono passare alcuni minuti.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="parte">
+  <div class="etichetta">Parte 1</div><!--segna:p1-->
+  <h1>In reparto, sul tablet</h1>
+  <p class="intro">Questa parte è per chi lavora in reparto. Bastano tre gesti: entrare col proprio nome, avviare la lavorazione, chiuderla scrivendo i pezzi.</p>
+
+  <h2>Entrare col proprio nome</h2><!--segna:entrare-->
+  <ol class="passi">
+    <li>Tocca il tuo nome.</li>
+    <li>Inserisci il tuo <b>PIN di 4 cifre</b>. Se lo sbagli, l’app lo dice e puoi riprovare subito.</li>
+  </ol>
+  <figure><img src="immagini/tablet-pin.png" style="width:118mm"><figcaption>La schermata di accesso. Il PIN lo assegna l’ufficio: se lo dimentichi, chiedine uno nuovo.</figcaption></figure>
+  <div class="box ricorda"><b class="tit">Quando hai finito, premi sempre «Esci»</b>Il tablet è condiviso: se non esci, chi viene dopo di te lavora a nome tuo.</div>
+
+  <h2>Avviare una lavorazione</h2><!--segna:avviare-->
+  <ol class="passi">
+    <li>Premi <span class="tasto">＋ Nuova lavorazione</span>.</li>
+    <li><b>Commessa:</b> scrivi il numero o il nome del cliente e tocca quella giusta. Quelle che hai usato di recente sono già in cima, con il bordo tratteggiato.</li>
+    <li><b>Lavorazione:</b> tocca quella che stai per fare.</li>
+    <li><b>Codice articolo:</b> scrivilo solo se c’è.</li>
+    <li>Premi <span class="tasto">▶ Avvia cronometro</span>.</li>
+  </ol>
+  <figure><img src="immagini/tablet-nuova.png" style="width:128mm"><figcaption>Scelta della commessa e della lavorazione.</figcaption></figure>
+  <div class="box nota">Non trovi la commessa? Vuol dire che non è in elenco o è stata chiusa: chiedi all’ufficio di aprirla. Il cronometro continua anche se chiudi l’app o si spegne lo schermo.</div>
+
+  <h2>Chiudere una lavorazione</h2><!--segna:chiudere-->
+  <ol class="passi">
+    <li>Sulla scheda arancione premi <span class="tasto">■ Fine lavorazione — inserisci pezzi</span>.</li>
+    <li>Scrivi i <b>pezzi fatti</b>, oppure usa <b>+</b> e <b>−</b>. Se non hai fatto pezzi, scrivi 0.</li>
+    <li>Controlla l’<b>ora di fine</b>: è già proposta e puoi cambiarla.</li>
+    <li>Se serve, aggiungi una nota, poi premi <span class="tasto">Chiudi e salva</span>.</li>
+  </ol>
+  <figure><img src="immagini/tablet-home.png" style="width:128mm"><figcaption>La tua schermata: a sinistra le lavorazioni in corso, a destra quelle chiuse oggi.</figcaption></figure>
+  <figure><img src="immagini/tablet-chiusura.png" style="width:112mm"><figcaption>La chiusura di una lavorazione.</figcaption></figure>
+  <div class="box ricorda"><b class="tit">Quali pezzi scrivere</b>Solo i pezzi fatti <b>in questa lavorazione</b>, in questa sessione. Non il totale della commessa.</div>
+
+  <h2>Inserire una riga a mano</h2><!--segna:mano-->
+  <p>Serve quando hai dimenticato di avviare il cronometro.</p>
+  <ol class="passi">
+    <li>Premi <span class="tasto">Inserisci a mano</span> e scegli commessa e lavorazione.</li>
+    <li>Controlla la <b>data</b>.</li>
+    <li>Scrivi <b>inizio e fine</b>, oppure solo i <b>minuti</b>. Se scrivi entrambi, valgono i minuti.</li>
+    <li>Scrivi i <b>pezzi</b> e premi <span class="tasto">Salva riga</span>.</li>
+  </ol>
+  <figure><img src="immagini/tablet-manuale.png" style="width:118mm"><figcaption>L’inserimento a mano.</figcaption></figure>
+
+  <h2>Lavorazioni rimaste aperte</h2><!--segna:aperte-->
+  <p>Se una lavorazione è aperta da un giorno precedente o da più di 10 ore, l’app lo segnala: vicino al tuo nome compare <span class="chip bad">1 da chiudere</span> e, una volta entrato, un avviso rosso sulla scheda.</p>
+  <figure><img src="immagini/tablet-aperta-ieri.png" style="width:100mm"><figcaption>Una lavorazione dimenticata aperta il giorno prima.</figcaption></figure>
+  <p>Chiudila come sempre, scrivendo <b>l’ora in cui hai finito davvero</b>. Se è di un giorno precedente, l’ora di fine non viene proposta: devi scriverla tu.</p>
+
+  <h2>L’invio all’ufficio</h2><!--segna:invio-->
+  <p><b>Non devi fare niente:</b> ogni riga chiusa parte da sola. Se non c’è rete, il tablet riprova ogni minuto mentre l’app è aperta, e di nuovo quando la riapri. Se vuoi, puoi forzare l’invio con <span class="tasto">Invia all’ufficio</span>, in alto.</p>
+  <table>
+    <tr><th style="width:52mm">In alto vedi</th><th>Significa</th></tr>
+    <tr><td>● Tutto inviato</td><td>L’ufficio ha ricevuto tutte le righe chiuse.</td></tr>
+    <tr><td>● 2 da inviare</td><td>Due righe stanno aspettando di partire.</td></tr>
+    <tr><td>● 2 da inviare · non riuscito, riprovo</td><td>Manca la rete o c’è un problema. Le righe sono al sicuro sul tablet.</td></tr>
+  </table>
+  <p>Con <span class="tasto">Stato invii</span> vedi le ultime righe del tablet, una per una, e la data dell’ultimo invio riuscito.</p>
+  <figure><img src="immagini/tablet-stato.png" style="width:118mm"><figcaption>La pagina «Stato invii», con una riga in attesa perché manca la rete.</figcaption></figure>
+  <div class="box attenzione"><b class="tit">Non disinstallare mai l’app</b>Non toglierla dal tablet e non cancellare i dati del browser: le righe non ancora inviate andrebbero perse. Per le righe in attesa, l’app deve essere aperta almeno una volta con la rete disponibile.</div>
+</section>
+
+<section class="scheda"><!--segna:scheda-->
+  <h1>Scheda rapida</h1>
+  <p class="intro">Da stampare e tenere vicino al tablet.</p>
+  <div class="griglia">
+    <div class="c"><h3>Inizio lavoro</h3><ol><li>Tocca il tuo nome</li><li>Scrivi il PIN</li><li><b>＋ Nuova lavorazione</b></li><li>Scegli la commessa</li><li>Scegli la lavorazione</li><li><b>▶ Avvia cronometro</b></li></ol></div>
+    <div class="c"><h3>Fine lavoro</h3><ol><li><b>■ Fine lavorazione</b></li><li>Scrivi i pezzi (anche 0)</li><li>Controlla l’ora di fine</li><li><b>Chiudi e salva</b></li><li><b>Esci</b></li></ol></div>
+    <div class="c"><h3>Dimenticato il cronometro?</h3><ol><li><b>Inserisci a mano</b></li><li>Commessa e lavorazione</li><li>Data</li><li>Inizio e fine, oppure minuti</li><li>Pezzi, poi <b>Salva riga</b></li></ol></div>
+    <div class="c"><h3>Avviso rosso?</h3><ol><li>Una lavorazione è rimasta aperta</li><li>Premi <b>Fine lavorazione</b></li><li>Scrivi l’ora in cui hai finito davvero</li><li><b>Chiudi e salva</b></li></ol></div>
+    <div class="c g2" style="background:#FBEFD6;border-color:#E8CE95"><h3 style="color:#5e3e00">Quattro regole</h3><ol style="columns:2;column-gap:8mm">
+      <li><b>Pezzi:</b> solo quelli di questa lavorazione, non il totale</li>
+      <li><b>Niente rete?</b> Continua a lavorare: le righe partono dopo</li>
+      <li><b>A fine turno:</b> chiudi le lavorazioni aperte</li>
+      <li><b>Mai</b> disinstallare l’app</li></ol></div>
+    <div class="c g2"><h3>Problemi?</h3><p style="margin:0">Commessa che non si trova, PIN dimenticato, nome che manca: rivolgiti all’ufficio.</p></div>
+  </div>
+</section>
+
+<section class="parte">
+  <div class="etichetta">Parte 2</div><!--segna:p2-->
+  <h1>In ufficio</h1>
+  <p class="intro">Questa parte è per chi controlla i rapportini. L’app si usa in <b>Google Chrome o Microsoft Edge</b>, su <b>un solo PC</b>: due PC che lavorano insieme possono entrare in conflitto.</p>
+
+  <h2>Aprire l’archivio e aggiornare i dati</h2><!--segna:archivio-->
+  <ol class="passi">
+    <li>Apri l’app. La prima volta premi <span class="tasto">Scegli la cartella</span>, seleziona la cartella dei rapportini su Google Drive e concedi l’accesso in modifica.</li>
+    <li>Le volte successive la cartella è ricordata. Il browser può chiederti di confermare con <span class="tasto">Riapri</span>.</li>
+    <li>Per vedere le ultime righe arrivate, premi <span class="tasto">Aggiorna</span>, in alto a destra. I dati non si aggiornano da soli.</li>
+  </ol>
+
+  <h2>Controllare le righe</h2><!--segna:controllare-->
+  <figure><img src="immagini/ufficio-cruscotto.png" style="width:100%"><figcaption>In alto i totali di oggi e l’ultimo invio di ogni tablet, sotto i filtri e la tabella.</figcaption></figure>
+  <p><b>Ultimo invio per tablet:</b> se un tablet è fermo da troppo tempo, controlla che sia acceso, connesso e con l’app aperta.</p>
+  <p><b>I filtri</b> scelgono periodo, dipendente e commessa. All’apertura è impostata la settimana in corso.</p>
+  <p>Le righe da guardare con attenzione hanno una riga rossa sul bordo sinistro e uno di questi segnali:</p>
+  <table>
+    <tr><th style="width:58mm">Segnale</th><th>Cosa controllare</th></tr>
+    <tr><td><span class="chip bad">0 pezzi</span></td><td>La lavorazione è stata chiusa senza pezzi: è giusto così?</td></tr>
+    <tr><td><span class="chip bad">Oltre 10 ore</span></td><td>Quasi sempre è una lavorazione chiusa tardi: correggi ora di fine e minuti.</td></tr>
+    <tr><td><span class="chip bad">Non chiusa</span></td><td>La riga non ha i minuti: indicali con «Correggi». Finché non li ha, non viene esportata.</td></tr>
+    <tr><td><span class="chip bad">Commessa non in anagrafica</span></td><td>Il codice non è nell’elenco commesse: correggi la riga oppure aggiungi la commessa.</td></tr>
+  </table>
+  <p>Altri segnali, solo informativi: <span class="chip man">Manuale</span> inserita a mano, <span class="chip run">Corretta</span> modificata dall’ufficio, <span class="chip ok">Esportata</span> già portata in Excel.</p>
+  <div class="box nota">Sul cruscotto, «Pezzi lavorati oggi» somma i pezzi di tutte le fasi. Sotto trovi «di cui finiti», cioè solo le fasi che contano i pezzi finiti (per esempio Collaudo o Imballo, secondo come sono segnate in anagrafica).</div>
+
+  <h2>Correggere, eliminare, ripristinare</h2><!--segna:correggere-->
+  <ol class="passi">
+    <li>Sulla riga premi <span class="tasto">Correggi</span>.</li>
+    <li>Modifica ciò che serve. Se cambi inizio o fine, i minuti si ricalcolano da soli.</li>
+    <li>Premi <span class="tasto">Salva correzione</span>.</li>
+  </ol>
+  <figure><img src="immagini/ufficio-correzione.png" style="width:150mm"><figcaption>Il pannello di correzione.</figcaption></figure>
+  <ul>
+    <li><b>Eliminare:</b> <span class="tasto">Correggi</span> → <span class="tasto">Elimina riga</span> → <span class="tasto">Sì, elimina</span>.</li>
+    <li><b>Ripristinare:</b> attiva <b>Mostra eliminate</b> e premi <span class="tasto">Ripristina</span> sulla riga.</li>
+    <li><b>Annullare una correzione:</b> <span class="tasto">Correggi</span> → <span class="tasto">Torna all’originale</span>.</li>
+  </ul>
+  <div class="box nota">Quello che arriva dal tablet non viene mai cancellato né modificato: correzioni ed eliminazioni si salvano a parte, quindi si può sempre tornare indietro.</div>
+
+  <h2>Portare le righe nel file Excel</h2><!--segna:excel-->
+  <ol class="passi">
+    <li>Con i filtri scegli il periodo e lascia attivo <b>Solo righe non ancora esportate</b>.</li>
+    <li>Premi <span class="tasto">Esporta … righe (.xlsx)</span> e salva il file.</li>
+    <li>Apri il file scaricato. Nel foglio <b>RAPPORTINI</b> seleziona le righe <b>dalla riga 2 in giù</b>, senza l’intestazione, e copiale.</li>
+    <li>Apri il file annuale dei rapportini, foglio <b>RAPPORTINI</b>, e clicca la <b>prima cella libera della colonna A</b>.</li>
+    <li>Usa <b>Incolla speciale → Valori</b>, non l’incolla normale.</li>
+    <li>Controlla che la colonna <b>CONTROLLO</b> dica OK e salva il file.</li>
+  </ol>
+  <div class="box attenzione"><b class="tit">Attenzione</b>
+    <ul>
+      <li>Il file esportato contiene le colonne da A a J. Le colonne da K a O del file annuale sono formule: non toccarle.</li>
+      <li>Non incollare due volte lo stesso file: le righe si conterebbero due volte.</li>
+      <li>Se togli la spunta a «Solo righe non ancora esportate», il file contiene anche righe già esportate: non incollarle di nuovo.</li>
+    </ul>
+  </div>
+  <div class="box nota">Le lavorazioni non chiuse e le righe eliminate non vengono esportate. Se CONTROLLO dice <b>COMMESSA NON IN ANAGRAFICA</b>, la commessa manca nel foglio COMMESSE del file annuale: aggiungila lì.</div>
+
+  <h2>Righe cambiate dopo l’esportazione</h2><!--segna:riportare-->
+  <p>Se correggi o elimini una riga <b>già incollata</b> in Excel, l’app non può cambiare il file annuale al posto tuo. La riga prende il segnale <span class="chip bad">Da riportare in Excel</span>, e il pulsante diventa, per esempio, «Esporta 0 righe + 1 correzione».</p>
+  <figure><img src="immagini/ufficio-da-riportare.png" style="width:100%"><figcaption>Una riga corretta dopo l’esportazione: il pulsante e l’avviso rosso segnalano che va riportata.</figcaption></figure>
+  <ol class="passi">
+    <li>Premi il pulsante di esportazione e apri il file.</li>
+    <li>Vai al foglio <b>CORREZIONI_DA_RIPORTARE</b>: per ogni riga trovi cosa fare e, dove serve, i valori PRIMA e DOPO.</li>
+    <li>Nel file annuale cerca la riga uguale a PRIMA e applica la modifica a mano.</li>
+  </ol>
+  <table>
+    <tr><th style="width:32mm">Cosa fare</th><th>Nel file annuale</th></tr>
+    <tr><td><b>CORREGGI</b></td><td>Scrivi i valori della riga DOPO sulla riga PRIMA.</td></tr>
+    <tr><td><b>ELIMINA</b></td><td>Cancella la riga PRIMA.</td></tr>
+    <tr><td><b>RIMETTI</b></td><td>Riaggiungi la riga DOPO: era stata eliminata e poi ripristinata.</td></tr>
+  </table>
+  <div class="box attenzione">Ogni correzione viene proposta <b>una volta sola</b>. Fai subito queste modifiche e conserva il file finché non le hai riportate tutte.</div>
+
+  <h2>Commesse, lavorazioni, dipendenti e PIN</h2><!--segna:anagrafiche-->
+  <p>Nella scheda <span class="tasto">Anagrafiche</span> si gestisce quello che i dipendenti vedono sul tablet. Dopo un salvataggio, i tablet ricevono le modifiche entro circa mezz’ora; per averle prima, sul tablet si preme <span class="tasto">Aggiorna anagrafiche</span> nella schermata di accesso. Serve che Drive abbia già sincronizzato il file.</p>
+  <figure><img src="immagini/ufficio-commesse.png" style="width:100%"><figcaption>L’elenco delle commesse, con la ricerca. Sopra, l’avviso per un codice che sembra una data.</figcaption></figure>
+  <h3>Aggiungere o modificare</h3>
+  <ol class="passi">
+    <li>Scegli <b>Commesse</b>, <b>Lavorazioni</b> o <b>Dipendenti</b>.</li>
+    <li>Premi <span class="tasto">＋ Aggiungi</span> oppure <span class="tasto">Modifica</span> sulla voce.</li>
+    <li>Compila i campi e premi <span class="tasto">Salva</span>.</li>
+  </ol>
+  <p>Una commessa chiusa o un dipendente andato via non si cancellano: togli la spunta <b>Attiva</b> e sparisce dai tablet. Per le lavorazioni, la spunta <b>Conta i pezzi finiti</b> va messa come nel file Excel.</p>
+  <h3>Dipendenti e PIN</h3>
+  <figure><img src="immagini/ufficio-pin.png" style="width:150mm"></figure>
+  <p>Ogni dipendente deve avere un <b>PIN di 4 cifre</b>, altrimenti non può entrare. I PIN non si possono rileggere: se uno viene dimenticato, assegnane uno nuovo. Lascia il campo vuoto per tenere quello attuale.</p>
+  <h3>Caricare l’elenco dal file Excel</h3>
+  <p>Con <span class="tasto">Importa dal file Excel dei rapportini</span> l’app legge commesse, lavorazioni e dipendenti dal file annuale e mostra un’anteprima prima di salvare. Non cancella niente e non tocca i PIN già impostati. I dipendenti nuovi non potranno entrare finché non assegni loro un PIN.</p>
+  <div class="box ricorda"><b class="tit">Una commessa nuova va in due posti</b>Deve stare sia nell’app, perché il dipendente la trovi, sia nel foglio COMMESSE del file annuale, perché la colonna CONTROLLO dica OK. Il modo più semplice: aggiungila in Excel, poi usa l’importazione.</div>
+  <div class="box attenzione"><b class="tit">I codici commessa con aspetto di data</b>Excel può trasformare un codice come «6/7» in una data. L’app tratta i codici sempre come testo, ma segnala quelli che sembrano date con <span class="chip bad">Sembra una data</span>: se è un danno di Excel, correggi il codice col valore giusto.</div>
+</section>
+
+<section class="parte">
+  <div class="etichetta">Parte 3</div><!--segna:p3-->
+  <h1>Installazione</h1>
+  <p class="intro">Si fa una volta sola. La cartella su Google Drive e il collegamento sono già preparati dal consulente, che fornisce anche indirizzo dello script e token.</p>
+
+  <h2>Installare l’app sul tablet</h2><!--segna:tablet-->
+  <p>Indirizzo dell’app: <b>https://marios921.github.io/rapportini-provvisorio/tablet/</b></p>
+  <table>
+    <tr><th style="width:50%">Android</th><th>iPad</th></tr>
+    <tr><td><ol style="margin:0;padding-left:5mm"><li>Apri l’indirizzo con <b>Chrome</b></li><li>Menu <b>⋮</b> in alto a destra</li><li><b>Installa app</b> (o <b>Aggiungi a schermata Home</b>)</li></ol></td>
+        <td><ol style="margin:0;padding-left:5mm"><li>Apri l’indirizzo con <b>Safari</b></li><li>Tocca <b>Condividi</b></li><li><b>Aggiungi alla schermata Home</b></li></ol></td></tr>
+  </table>
+  <p>Poi <b>apri l’app dall’icona</b> appena creata, non dal browser. Su iPad è indispensabile: il browser e l’app installata conservano i dati separatamente. Compila quindi la prima configurazione, con la rete attiva:</p>
+  <figure><img src="immagini/tablet-configurazione.png" style="width:108mm"></figure>
+  <table>
+    <tr><th style="width:50mm">Campo</th><th>Cosa scrivere</th></tr>
+    <tr><td><b>Codice di questo tablet</b></td><td>Un codice diverso per ogni tablet: TAB01, TAB02, …</td></tr>
+    <tr><td><b>Indirizzo dello script</b></td><td>Quello fornito dal consulente; finisce con <b>/exec</b></td></tr>
+    <tr><td><b>Token segreto</b></td><td>La parola segreta fornita dal consulente</td></tr>
+  </table>
+  <div class="box attenzione"><b class="tit">Il token è una chiave</b>Non scriverlo in questo manuale, su fogli appesi in reparto o in messaggi. Chi ha indirizzo e token può inviare dati all’archivio. Se pensi che sia finito in mani sbagliate, avvisa il consulente.</div>
+  <p>Per cambiare le impostazioni in seguito: <span class="tasto">Impostazioni</span>, nella schermata di accesso. Per modificarle serve il token attuale.</p>
+
+  <h2>Preparare il PC dell’ufficio</h2><!--segna:pc-->
+  <ol class="passi">
+    <li>Installa <b>Google Drive per desktop</b> ed entra con l’account che possiede o condivide la cartella dei rapportini.</li>
+    <li>Nelle preferenze di Drive scegli il <b>mirroring</b> dei file, oppure rendi la cartella <b>disponibile offline</b> (tasto destro sulla cartella). Così la lettura è più veloce.</li>
+    <li>Apri in <b>Chrome o Edge</b> l’indirizzo <b>https://marios921.github.io/rapportini-provvisorio/ufficio/</b> e salvalo tra i preferiti.</li>
+    <li>Premi <span class="tasto">Scegli la cartella</span>, seleziona la cartella dei rapportini e concedi l’accesso.</li>
+    <li>Nella scheda <span class="tasto">Anagrafiche</span> importa gli elenchi dal file Excel e assegna un PIN a ogni dipendente.</li>
+  </ol>
+  <div class="box nota"><b>La cartella su Drive non va riordinata.</b> Non spostare, rinominare o aprire per modificare i file nelle sottocartelle «anagrafiche», «invii» e «ufficio»: l’app li gestisce da sola.</div>
+</section>
+
+<section class="parte">
+  <h1 style="font-size:24pt">Problemi e soluzioni</h1><!--segna:problemi-->
+  <table>
+    <tr><th style="width:62mm">Cosa succede</th><th>Cosa fare</th></tr>
+    <tr><td colspan="2" style="background:#EEF2F0"><b>Sul tablet</b></td></tr>
+    <tr><td>Ho dimenticato il PIN</td><td>L’ufficio ne assegna uno nuovo. Sul tablet, <b>Aggiorna anagrafiche</b> nella schermata di accesso.</td></tr>
+    <tr><td>Il mio nome non c’è, oppure «non è impostato un PIN»</td><td>L’ufficio deve aggiungerti o assegnarti il PIN. Poi <b>Aggiorna anagrafiche</b>.</td></tr>
+    <tr><td>Non trovo la commessa</td><td>L’ufficio deve aprirla o riattivarla. Poi <b>Aggiorna anagrafiche</b>.</td></tr>
+    <tr><td>«L’ora di fine è nel futuro»</td><td>Controlla l’ora scritta: non può essere più avanti dell’ora attuale.</td></tr>
+    <tr><td>«Non riuscito, riprovo» e nessuna rete</td><td>Continua a lavorare, le righe sono salvate. Partono da sole quando la rete torna, con l’app aperta.</td></tr>
+    <tr><td>«Non riuscito» anche con la rete, o «Token non valido»</td><td>Avvisa il consulente: l’indirizzo o il token potrebbero essere cambiati. Le righe restano sul tablet.</td></tr>
+    <tr><td>Ho sbagliato pezzi o commessa dopo aver chiuso</td><td>Il tablet non permette modifiche: avvisa l’ufficio, che corregge la riga.</td></tr>
+    <tr><td>Ho avviato per errore una lavorazione</td><td>Chiudila scrivendo 0 pezzi, con una nota, e avvisa l’ufficio, che la elimina.</td></tr>
+    <tr><td colspan="2" style="background:#EEF2F0"><b>In ufficio</b></td></tr>
+    <tr><td>«Serve Chrome o Edge»</td><td>Apri l’app con Google Chrome o Microsoft Edge.</td></tr>
+    <tr><td>Mancano righe che il tablet dà come inviate</td><td>Controlla che Drive per desktop sia attivo e abbia finito di sincronizzare, attendi qualche minuto e premi <b>Aggiorna</b>.</td></tr>
+    <tr><td>«File non letti»</td><td>Di solito è una sincronizzazione in corso: riprova tra poco con <b>Aggiorna</b>. Se resta, avvisa il consulente.</td></tr>
+    <tr><td>«Il file … non si legge»</td><td>L’app non lo sovrascrive, per non perdere niente. Avvisa il consulente: su Drive restano le versioni precedenti.</td></tr>
+    <tr><td>«È cambiato dopo l’ultima lettura»</td><td>Forse un altro PC ha lavorato sull’archivio. Premi <b>Aggiorna</b> e ripeti l’operazione, poi usa un solo PC.</td></tr>
+    <tr><td>«Righe arrivate due volte con contenuto diverso»</td><td>L’app ha tenuto la prima versione. Controlla la riga e correggila se serve.</td></tr>
+    <tr><td>Vedo «doppioni scartati»</td><td>È normale: una stessa riga è arrivata due volte e l’app la conta una sola.</td></tr>
+    <tr><td>Il pulsante Esporta è spento</td><td>Non c’è niente di nuovo nel periodo scelto. Controlla i filtri e premi <b>Aggiorna</b>.</td></tr>
+  </table>
+</section>
+</body></html>
