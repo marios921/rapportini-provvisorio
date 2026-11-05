@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="it"><head><meta charset="utf-8"><title>Rapportini — Impostazione sul Drive aziendale</title>
+<style>{{STILE}}
+/* il numero del passo galleggia dentro la voce: non può spezzarsi tra due pagine */
+ol.passi>li{padding-left:9mm;display:flow-root}
+ol.passi>li::before{position:static;float:left;margin-left:-9mm;margin-top:0}
+.testa{background:var(--acc);color:#fff;border-radius:3mm;padding:9mm 10mm;margin-bottom:6mm}
+.testa small{font-size:9.5pt;letter-spacing:.14em;text-transform:uppercase;opacity:.85}
+.testa h1{color:#fff;font-size:28pt;margin:2mm 0 1.5mm}
+.testa p{margin:0;font-size:12pt}
+.comando{display:block;font:600 11pt ui-monospace,Menlo,Consolas,monospace;background:#15202A;color:#fff;border-radius:1.5mm;padding:2mm 3mm;margin:1.5mm 0;break-inside:avoid}
+code{font:600 9.8pt ui-monospace,Menlo,Consolas,monospace;background:#EEF2F0;border-radius:1mm;padding:0 1mm}
+.link{font-weight:700;color:var(--acc);overflow-wrap:anywhere}
+h2 .tempo{float:right;font:400 9.5pt "Helvetica Neue",Arial,sans-serif;color:var(--muted);padding-top:2mm}
+.spunte{list-style:none;padding:0;margin:2mm 0 4mm}
+.spunte li{padding-left:7.5mm;position:relative;margin-bottom:2mm;break-inside:avoid}
+.spunte li::before{content:"";position:absolute;left:0;top:.4mm;width:4mm;height:4mm;border:1pt solid var(--acc);border-radius:.8mm}
+.dati td:first-child{width:50mm;font-weight:600}
+.dati .riga-vuota{height:7mm}
+.dati td{border:0;padding:1.5mm 2.5mm 1.5mm 0;vertical-align:bottom}
+</style></head><body>
+
+<div class="testa">
+  <small>Rapportini di produzione</small>
+  <h1>Impostazione sul Drive aziendale</h1>
+  <p>Da fare una volta sola, prima di iniziare a usare tablet e app ufficio</p>
+  <p style="font-size:9.5pt;opacity:.85;margin-top:2mm">Mario Saronne — Consulente di Direzione · Novembre 2026</p>
+</div>
+
+<p class="intro">Alla fine di questa guida l’archivio dei rapportini sarà sul Google Drive dell’azienda, l’ufficio potrà leggerlo dal PC e i tablet potranno inviare le righe.</p>
+
+<table>
+  <tr><th style="width:9mm"></th><th>Cosa serve</th></tr>
+  <tr><td>1</td><td>L’accesso all’<b>account Google dell’azienda</b> che conserverà i dati</td></tr>
+  <tr><td>2</td><td>Il <b>PC Windows dell’ufficio</b>, con Chrome o Edge</td></tr>
+  <tr><td>3</td><td>Il <b>file Excel annuale dei rapportini</b></td></tr>
+  <tr><td>4</td><td>Almeno <b>un tablet Android</b>, per la prova finale</td></tr>
+</table>
+
+<h2>Quale account usare</h2>
+<ul>
+  <li><b>Un solo account per tutto:</b> cartella, script e Google Drive per desktop sul PC dell’ufficio.</li>
+  <li><b>Un account che non dipenda da una persona:</b> meglio <code>ufficio@…</code> della mail personale di un dipendente. Se l’account venisse chiuso, i tablet non potrebbero più inviare.</li>
+</ul>
+<div class="box attenzione"><b class="tit">Se l’azienda usa Google Workspace</b>L’amministratore può aver bloccato gli script o la pubblicazione aperta a tutti. Se l’opzione del passo 6 non compare, chiedigli di consentire le app web di Apps Script accessibili a «Chiunque». Senza questa opzione i tablet non possono inviare.</div>
+
+<h2>Passo 1 — Crea la cartella</h2>
+<ol class="passi">
+  <li>Entra in <span class="link">drive.google.com</span> con l’account dell’azienda.</li>
+  <li>Crea, dentro «Il mio Drive», una cartella chiamata per esempio <code>Rapportini</code>.</li>
+  <li>Aprila e guarda l’indirizzo in alto: copia la parte dopo <code>/folders/</code>. È l’<b>ID della cartella</b>.</li>
+</ol>
+
+<h2 style="break-before:page">Passo 2 — Crea il token</h2>
+<p>Il token è una parola segreta che autorizza i tablet a scrivere nell’archivio. Deve essere lunga e impossibile da indovinare.</p>
+<ol class="passi">
+  <li>Sul PC premi il tasto <b>Windows</b>, scrivi <code>PowerShell</code> e aprilo.</li>
+  <li>Scrivi questo comando e premi Invio:<span class="comando">[guid]::NewGuid().ToString("N") + [guid]::NewGuid().ToString("N")</span></li>
+  <li>Compare una lunga riga di lettere e numeri: selezionala, copiala con Ctrl+C e conservala in un posto sicuro, come un gestore di password.</li>
+</ol>
+<div class="box attenzione"><b class="tit">Il token è una chiave</b>Non scriverlo su fogli appesi o in email insieme all’indirizzo dello script, e non lasciarlo visibile nelle schermate. Chi ha indirizzo e token può inviare dati all’archivio e leggere le anagrafiche.</div>
+
+<h2>Passo 3 — Incolla lo script</h2>
+<ol class="passi">
+  <li>Apri <span class="link">github.com/marios921/rapportini-provvisorio/blob/main/apps-script/Codice.gs</span> e premi l’icona <b>Copy raw file</b>, in alto a destra sopra il codice.</li>
+  <li>Apri <span class="link">script.google.com</span> <b>con l’account dell’azienda</b> e premi <span class="tasto">Nuovo progetto</span>.</li>
+  <li>Cancella tutto quello che c’è nell’editor, incolla il codice e salva con Ctrl+S.</li>
+  <li>In alto clicca su «Progetto senza titolo» e chiamalo <code>Rapportini</code>.</li>
+</ol>
+
+<h2>Passo 4 — Inserisci token e cartella</h2>
+<ol class="passi">
+  <li>A sinistra premi la rotella <b>Impostazioni progetto</b>.</li>
+  <li>In fondo, sotto <b>Proprietà script</b>, premi <span class="tasto">Aggiungi proprietà script</span> e inserisci queste due, scritte esattamente così:</li>
+</ol>
+<table>
+  <tr><th style="width:50mm">Proprietà</th><th>Valore</th></tr>
+  <tr><td><code>TOKEN</code></td><td>Il token del passo 2</td></tr>
+  <tr><td><code>ID_CARTELLA</code></td><td>L’ID della cartella del passo 1</td></tr>
+</table>
+<ol class="passi" style="counter-reset:p 2">
+  <li>Premi <span class="tasto">Salva proprietà script</span>.</li>
+</ol>
+
+<h2>Passo 5 — Prepara la cartella</h2>
+<ol class="passi">
+  <li>A sinistra torna su <b>Editor</b> (l’icona <code>&lt; &gt;</code>).</li>
+  <li>Nel menu in alto scegli la funzione <b>prepara</b> e premi <span class="tasto">Esegui</span>.</li>
+  <li>Google chiede le autorizzazioni: premi <span class="tasto">Verifica le autorizzazioni</span> e scegli l’account dell’azienda.</li>
+  <li>Se compare un avviso di app non verificata, è normale, perché lo script è stato creato da questo account: premi <b>Avanzate</b>, poi <b>Vai a Rapportini</b>, poi <b>Consenti</b>.</li>
+  <li>Controlla su Drive: nella cartella devono comparire <code>anagrafiche</code>, <code>invii</code> e <code>ufficio</code>.</li>
+</ol>
+
+<h2>Passo 6 — Pubblica lo script</h2>
+<ol class="passi">
+  <li>In alto a destra premi <span class="tasto">Esegui il deployment</span>, poi <span class="tasto">Nuovo deployment</span>.</li>
+  <li>Premi la rotella accanto a «Seleziona tipo» e scegli <b>App web</b>.</li>
+  <li>Imposta <b>Esegui come: Me</b> e <b>Chi ha accesso: Chiunque</b>. Non vanno bene «Chiunque abbia un Account Google» né «Solo utenti del dominio».</li>
+  <li>Premi <span class="tasto">Esegui il deployment</span> e copia l’<b>URL dell’app web</b>, che finisce con <code>/exec</code>. Serve per configurare ogni tablet.</li>
+</ol>
+
+<h2>Passo 7 — Controlla lo script</h2>
+<p>Nella barra degli indirizzi del browser scrivi l’URL del passo 6, aggiungi in fondo <code>?token=</code> e subito dopo il token, poi premi Invio.</p>
+<table>
+  <tr><th style="width:68mm">Cosa vedi</th><th>Cosa significa</th></tr>
+  <tr><td><code>"ok":false</code> e <i>Il file anagrafiche.json non esiste ancora</i></td><td><b>È il risultato giusto.</b> Lo script risponde e il token è corretto.</td></tr>
+  <tr><td><i>Token non valido</i></td><td>Il token non coincide con la proprietà <code>TOKEN</code> del passo 4.</td></tr>
+  <tr><td>Una pagina di accesso Google</td><td>Al passo 6 l’accesso non è su <b>Chiunque</b>: correggilo.</td></tr>
+  <tr><td><i>Manca la sottocartella</i></td><td>Il passo 5 non è stato completato.</td></tr>
+</table>
+
+<h2>Passo 8 — Prepara il PC dell’ufficio</h2>
+<ol class="passi">
+  <li>Installa <b>Google Drive per desktop</b> e accedi <b>con l’account dell’azienda</b>.</li>
+  <li>Nelle preferenze di Drive scegli il <b>mirroring</b> dei file, oppure rendi la cartella <b>disponibile offline</b> (tasto destro sulla cartella). Così la lettura è più veloce.</li>
+  <li>Apri Esplora file: compare l’unità <b>Google Drive</b> (di solito <code>G:</code>). Aspetta che in <code>Il mio Drive</code> compaiano la cartella <code>Rapportini</code> e le tre sottocartelle.</li>
+  <li>Apri in Chrome o Edge <span class="link">marios921.github.io/rapportini-provvisorio/ufficio/</span> e salvalo tra i preferiti.</li>
+  <li>Premi <span class="tasto">Scegli la cartella</span>, seleziona <code>Il mio Drive\Rapportini</code> nell’unità Google Drive e concedi l’accesso in modifica.</li>
+</ol>
+<div class="box ricorda"><b class="tit">Se l’app dice «Questa cartella non contiene un archivio»</b>Non creare le sottocartelle: hai scelto la cartella sbagliata, oppure Drive non ha finito di sincronizzare. Premi <span class="tasto">Scegli un’altra cartella</span>.</div>
+
+<h2>Passo 9 — Carica anagrafiche e PIN</h2>
+<ol class="passi">
+  <li>Apri la scheda <span class="tasto">Anagrafiche</span> e scrivi il <b>nome dell’azienda</b>: comparirà sui tablet.</li>
+  <li>Premi <span class="tasto">Importa dal file Excel dei rapportini</span> e scegli il file annuale.</li>
+  <li>Leggi l’anteprima e gli avvisi, poi premi <span class="tasto">Conferma e salva</span>. Se compaiono codici commessa con l’aspetto di una data, controllali e correggili col valore giusto.</li>
+  <li>Vai su <b>Dipendenti</b> e, per ognuno, premi <span class="tasto">Modifica</span>, scrivi un <b>PIN di 4 cifre</b> e premi <span class="tasto">Salva</span>. Senza PIN il dipendente non può entrare.</li>
+  <li>Comunica a ciascuno il proprio PIN. L’app non permette di rileggerlo: se viene dimenticato, se ne assegna uno nuovo.</li>
+  <li>Aspetta qualche minuto che Drive sincronizzi, poi ripeti il controllo del passo 7: ora devi vedere <code>"ok":true</code> seguito dagli elenchi.</li>
+</ol>
+
+<h2>Passo 10 — Installa e collega il primo tablet</h2>
+<ol class="passi">
+  <li>Sul tablet Android apri <span class="link">marios921.github.io/rapportini-provvisorio/tablet/</span> con <b>Chrome</b>.</li>
+  <li>Premi il menu <b>⋮</b> in alto a destra, poi <b>Installa app</b> (o <b>Aggiungi a schermata Home</b>).</li>
+  <li>Apri l’app <b>dall’icona</b>, non dal browser, e compila la prima configurazione con la rete attiva:</li>
+</ol>
+<table>
+  <tr><th style="width:50mm">Campo</th><th>Cosa scrivere</th></tr>
+  <tr><td><b>Codice di questo tablet</b></td><td>Diverso per ogni tablet: <code>TAB01</code>, <code>TAB02</code>, …</td></tr>
+  <tr><td><b>Indirizzo dello script</b></td><td>L’URL del passo 6, che finisce con <code>/exec</code></td></tr>
+  <tr><td><b>Token segreto</b></td><td>Il token del passo 2</td></tr>
+</table>
+<ol class="passi" style="counter-reset:p 3">
+  <li>Premi <span class="tasto">Salva e prova il collegamento</span>: devono comparire i nomi dei dipendenti.</li>
+</ol>
+
+<h2>Passo 11 — Prova finale</h2>
+<ul class="spunte">
+  <li>Sul tablet entra con un nome e il suo PIN.</li>
+  <li>Avvia una lavorazione, chiudila scrivendo i pezzi e controlla che in alto compaia <b>Tutto inviato</b>.</li>
+  <li>Su Drive, nella cartella <code>invii</code>, è comparso un nuovo file.</li>
+  <li>Sul PC, dopo qualche minuto, premi <span class="tasto">Aggiorna</span>: la riga compare nella tabella.</li>
+  <li>Attiva la modalità aereo sul tablet e inserisci una riga a mano: deve comparire <b>1 da inviare</b>.</li>
+  <li>Togli la modalità aereo, con l’app aperta: entro un minuto deve comparire <b>Tutto inviato</b>.</li>
+  <li><b>Esporta</b> le righe di prova, incollale in una <b>copia</b> del file Excel con <b>Incolla valori</b> e controlla che la colonna CONTROLLO dica OK.</li>
+  <li>Elimina le righe di prova dalla tabella: <span class="tasto">Correggi</span>, <span class="tasto">Elimina riga</span>, <span class="tasto">Sì, elimina</span>. Non incollare mai le righe di prova nel file vero.</li>
+</ul>
+<p>Se tutto torna, installa gli altri tablet ripetendo il passo 10, con un codice diverso per ciascuno. Per l’uso quotidiano vale il <b>Manuale di istruzioni</b>.</p>
+
+<h2>Se qualcosa non va</h2>
+<table>
+  <tr><th style="width:68mm">Problema</th><th>Cosa fare</th></tr>
+  <tr><td>«Chiunque» non compare al passo 6</td><td>L’amministratore di Workspace deve consentirlo.</td></tr>
+  <tr><td>Blocco o errore di autorizzazione al passo 5</td><td>Controlla di essere entrato con l’account dell’azienda. Se è Workspace, chiedi all’amministratore di consentire gli script.</td></tr>
+  <tr><td>Errore su <code>ID_CARTELLA</code> o cartella non trovata</td><td>Controlla di aver copiato solo l’ID, senza <code>?usp=…</code> o altro, e che la cartella sia di questo account.</td></tr>
+  <tr><td>Il tablet dice «Risposta non valida dal server»</td><td>Al passo 6 l’accesso non è su <b>Chiunque</b>, oppure l’indirizzo è sbagliato.</td></tr>
+  <tr><td>Il tablet dice «Il file anagrafiche.json non esiste ancora»</td><td>Completa il passo 9 e aspetta la sincronizzazione di Drive.</td></tr>
+  <tr><td>Il browser rifiuta la cartella sul PC</td><td>Scegli la cartella <code>Rapportini</code> dentro <code>Il mio Drive</code>, non l’intera unità <code>G:</code>. Se il browser continua a rifiutarla, avvisa il consulente.</td></tr>
+  <tr><td>Il token è finito in mani sbagliate</td><td>Cambia la proprietà <code>TOKEN</code> (passo 4) e reinserisci il nuovo token su ogni tablet, da <b>Impostazioni</b>.</td></tr>
+</table>
+<div class="box nota"><b class="tit">Se in futuro si aggiorna lo script</b>Incolla il nuovo codice, poi <b>Esegui il deployment → Gestisci i deployment → matita → Versione: Nuova versione</b>. Così l’indirizzo non cambia. Un «Nuovo deployment» creerebbe un indirizzo diverso, da reinserire su ogni tablet.</div>
+
+<h2 style="break-before:page">Promemoria</h2>
+<p>Da compilare e conservare. <b>Il token non va scritto qui.</b></p>
+<table class="dati">
+  <tr><td>Account Google usato</td><td><div class="riga-vuota"></div></td></tr>
+  <tr><td>Nome della cartella</td><td><div class="riga-vuota"></div></td></tr>
+  <tr><td>Indirizzo dello script (/exec)</td><td><div class="riga-vuota"></div></td></tr>
+  <tr><td>Dove è conservato il token</td><td><div class="riga-vuota"></div></td></tr>
+  <tr><td>Tablet e relativi codici</td><td><div class="riga-vuota"></div></td></tr>
+  <tr><td>Impostato il</td><td><div class="riga-vuota"></div></td></tr>
+</table>
+</body></html>
